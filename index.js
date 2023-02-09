@@ -1,5 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
-const port = 3000;
+const db = require("./db");
+const PORT = 3000;
 
-app.listen(port, console.log(`Server: http://localhost:${port}`));
+app.listen(PORT, console.log(`Server: http://localhost:${PORT}`));

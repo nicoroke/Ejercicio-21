@@ -86,5 +86,16 @@ User.init(
       allowNull: false,
     },
   },
-  { sequelize, modelName: "comment" }
+  { sequelize, modelName: "user" }
 );
+
+// sequelize
+//   .sync({ force: true })
+//   .then(console.log("¡Las tablas fueron creadas!"));
+
+module.exports = {
+  sequelize,
+  Article,
+  Comment,
+  User,
+};

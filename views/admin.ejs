@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de administración</title>
+    <%- include("partials/head") %>
+  </head>
+  <body>
+    <%- include("partials/navbar") %>
+
+    <div class="container pt-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Articles</h1>
+        <a href="/artilces/create" class="btn btn-success">Nuevo</a>
+      </div>
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Title</th>
+              <th scope="col">Content</th>
+              <th scope="col">Image</th>
+              <th scope="col">Created at</th>
+              <th scope="col">Author</th>
+              <th scope="col" style="width: 1px; white-space: nowrap">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(const article of articles) { %>
+            <tr>
+              <th><%= article.id %></th>
+              <td><%= article.firstname %></td>
+              <td><%= article.lastname %></td>
+              <td><%= article.age %></td>
+              <td style="width: 1px; white-space: nowrap">
+                <a
+                  href="/api/articulos/editar/<%= article.id %>"
+                  class="btn btn-sm btn-primary me-1"
+                  >Editar</a
+                >
+                <form
+                  action="/api/articulos/eliminar/<%= article.id %>?_method=delete"
+                  method="POST"
+                  class="d-inline"
+                >
+                  <button type="submit" class="btn btn-sm btn-danger">
+                    Eliminar
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <%- include("partials/footer") %>
+  </body>
+</html>

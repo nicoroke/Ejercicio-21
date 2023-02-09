@@ -2,6 +2,7 @@ const db = require("../db");
 
 module.exports = {
   index: async (req, res) => {
-    res.render("admin");
+    const articles = await db.Article.findAll();
+    res.render("admin", { articles });
   },
 };

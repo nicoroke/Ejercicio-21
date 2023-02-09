@@ -70,7 +70,7 @@ User.init(
       primaryKey: true,
     },
     type: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(10),
       allowNull: false,
     },
     firstname: {

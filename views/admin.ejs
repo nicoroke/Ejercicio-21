@@ -34,9 +34,17 @@
             <% for(const article of articles) { %>
             <tr>
               <th><%= article.id %></th>
-              <td><%= article.firstname %></td>
-              <td><%= article.lastname %></td>
-              <td><%= article.age %></td>
+              <td>
+                <!-- prettier-ignore -->
+                <%= article.title.substring(0, 20) %><%= article.title.length > 20 && "..." %>
+              </td>
+              <td>
+                <!-- prettier-ignore -->
+                <%= article.content.substring(0, 50) %><%= article.content.length > 50 && "..." %>
+              </td>
+              <td><%= article.image %></td>
+              <td><%- article.createdAt %></td>
+              <td><%= article.author %></td>
               <td style="width: 1px; white-space: nowrap">
                 <a
                   href="/api/articulos/editar/<%= article.id %>"

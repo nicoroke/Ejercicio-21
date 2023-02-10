@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nuevo artículo</title>
+    <%- include("partials/head") %>
+  </head>
+  <body>
+    <%- include("partials/navbar") %>
+
+    <div class="container pt-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <form>
+          <input type="button" class="btn btn-success" value="← Volver" onclick="history.back()" />
+        </form>
+        <h1>Editar artículo</h1>
+      </div>
+
+      <form action="/articulos" method="POST">
+        <div class="form-floating mb-3 mt-3">
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="form-control"
+            placeholder="Título..."
+            value="<%= article.title %>"
+          />
+          <label for="title" class="form-label fs-6">Título</label>
+        </div>
+        <div class="form-floating mb-3 mt-3">
+          <textarea
+            id="content"
+            name="content"
+            class="form-control"
+            style="min-height: 200px"
+            rows="10"
+            placeholder="Contenido..."
+          >
+<%= article.content %></textarea
+          >
+          <label for="content" class="form-label">Contenido</label>
+        </div>
+        <div class="d-flex justify-content-between">
+          <small class="text-muted"
+            >Created by <%= `${article.user.firstname} ${article.user.lastname}` %></small
+          >
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+
+    <%- include("partials/footer") %>
+    <script>
+      document.querySelector("#btn-back", () => {
+        history.back();
+      });
+    </script>
+  </body>
+</html>

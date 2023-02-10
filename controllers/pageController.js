@@ -23,19 +23,14 @@ async function index(req, res) {
   res.render("home", { articles });
 }
 
-async function showContact(req, res) {
-  res.render("contact");
-}
+// async function showContact(req, res) {
+//   res.render("contact");
+// }
 
-async function showAboutUs(req, res) {
-  res.render("aboutUs");
-}
-
-// Otros handlers...
-// ...
+// async function showAboutUs(req, res) {
+//   res.render("aboutUs");
+// }
 
 module.exports = {
   index,
-  showContact,
-  showAboutUs,
 };

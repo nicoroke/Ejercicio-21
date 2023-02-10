@@ -3,11 +3,11 @@ const router = express.Router();
 const adminController = require("../controllers/adminController");
 
 router.get("/", adminController.index);
-router.get("/crear", adminController.create);
-router.post("/", adminController.store);
-router.get("/:id", adminController.show);
-router.get("/:id/editar", adminController.edit);
-router.patch("/:id", adminController.update);
-router.delete("/:id", adminController.destroy);
+router.get("/articulo/nuevo", adminController.create);
+router.post("/articulo", adminController.store);
+router.get("/articulo/:id", adminController.show);
+router.get("/articulo/:id/editar", adminController.edit);
+router.patch("/articulo/:id", adminController.update);
+router.delete("/articulo/:id", adminController.destroy);
 
 module.exports = router;

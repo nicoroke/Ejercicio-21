@@ -9,6 +9,14 @@
   "keywords": [],
   "author": "Hack Academy",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicoroke/Ejercicio-21.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicoroke/Ejercicio-21/issues"
+  },
+  "homepage": "https://github.com/nicoroke/Ejercicio-21#readme",
   "dependencies": {
     "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",

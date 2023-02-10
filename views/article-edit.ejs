@@ -15,7 +15,7 @@
         <h1>Editar artículo</h1>
       </div>
 
-      <form action="/articulos" method="POST">
+      <form action="/admin/articulo/<%= article.id %>?_method=PATCH" method="POST">
         <div class="form-floating mb-3 mt-3">
           <input
             type="text"
@@ -44,7 +44,7 @@
           <small class="text-muted"
             >Created by <%= `${article.user.firstname} ${article.user.lastname}` %></small
           >
-          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="submit" class="btn btn-primary">Modificar</button>
         </div>
       </form>
     </div>

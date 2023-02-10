@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <%- include("partials/head") %>
+  </head>
+  <body>
+    <%- include("partials/navbar") %>
+
+    <div class="container-fluid text-center bg-imageee text-light mb-4">
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <h1 class="fs-1 font-open-sans"><%= article.title %></h1>
+          <small>Creado por <%= article.user.firstname %> el 24 de Setiembre, 2022</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <div class="px-4">
+            <p><%= article.content %></p>
+            <hr class="my-5" />
+            <form action="/articulos/<%= article.id %>" method="post" class="mb-5">
+              <div class="mb-3">
+                <legend>Add your comment</legend>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  name="username"
+                  placeholder="Name"
+                />
+              </div>
+              <div class="mb-3">
+                <textarea name="content" id="content" class="width-100 heigth-6-rem"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary width-100">Send</button>
+            </form>
+
+            <h3>Comments(<%= count %>)</h3>
+            <% for(const coment of rows){ %>
+            <p><%= coment.content %></p>
+            <small class="text-secondary fst-italic fs-8 font-lora"><%= coment.username %></small>
+            <hr />
+            <% }%>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -- -->
+    <%- include("partials/footer") %>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

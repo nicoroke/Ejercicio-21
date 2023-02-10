@@ -19,7 +19,7 @@
 const { Article, User } = require("../models");
 
 async function index(req, res) {
-  const articles = await Article.findAll({ include: User });
+  const articles = await Article.findAll({ include: User, limit: 4 });
   res.render("home", { articles });
 }
 

@@ -1,17 +1,39 @@
-const { Article, User } = require("../models");
+const { Article, User, Comment } = require("../models");
 
 // Display a listing of the resource.
 async function index(req, res) {
   const articles = await Article.findAll({ include: User });
   /* res.json(articles); */
-  res.render("home", { articles });
+  res.render("article", { articles });
 }
 
 // Display the specified resource.
-async function show(req, res) {}
+async function show(req, res) {
+  const article = await Article.findByPk(req.params.id, { include: User });
+  const { count, rows } = await Comment.findAndCountAll({
+    include: Article,
+    where: {
+      articleId: `${req.params.id}`,
+    },
+    limit: 2,
+  });
+  /* res.json(rows); */
+  res.render("article", { article, count, rows });
+}
 
 // Show the form for creating a new resource
-async function create(req, res) {}
+async function create(req, res) {
+  const username = req.body.username;
+  const content = req.body.content;
+  const articleId = req.params.id;
+
+  await Comment.create({
+    content: `${content}`,
+    username: `${username}`,
+    articleId: `${articleId}`,
+  });
+  res.redirect(`/articulos/${articleId}`);
+}
 
 // Store a newly created resource in storage.
 async function store(req, res) {}
@@ -20,7 +42,20 @@ async function store(req, res) {}
 async function edit(req, res) {}
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) {
+  async function create(req, res) {
+    const username = req.body.username;
+    const content = req.body.content;
+    const articleId = req.params;
+
+    await Comment.create({
+      content: `${content}`,
+      username: `${username}`,
+      articleId: `${articleId}`,
+    });
+    res.send("El post");
+  }
+}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {}

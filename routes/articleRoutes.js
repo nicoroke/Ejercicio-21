@@ -6,6 +6,7 @@ router.get("/", articleController.index);
 router.get("/nuevo", articleController.create);
 router.post("/", articleController.store);
 router.get("/:id", articleController.show);
+router.post("/:id", articleController.create);
 router.get("/:id/editar", articleController.edit);
 router.patch("/:id", articleController.update);
 router.delete("/:id", articleController.destroy);

@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap demo</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Home</title>
+    <%- include("partials/head") %>
   </head>
   <body>
-    <div class="container-fluid text-center bg-imageee py-5">
+    <%- include("partials/navbar") %>
+
+    <div class="container-fluid text-center bg-imageee text-light mb-4">
       <div class="row justify-content-center">
         <div class="col-6">
-          <h1 class="fs-1 fw-bold">Hack the blog</h1>
+          <h1 class="fs-1 font-open-sans">Hack the blog</h1>
           <small>El Blog de Hack Academy</small>
         </div>
       </div>
@@ -26,8 +20,14 @@
       <div class="row justify-content-center">
         <div class="col-6">
           <div class="px-4">
-            <h2 class="fs-4 fw-bold font-open-sans"><%= article.title %></h2>
-            <small class="text-secondary fst-italic fs-8"
+            <h2 class="fs-4 fw-bold font-open-sans">
+              <a
+                href="http://localhost:3000/articulos/<%= article.id %>"
+                class="text-decoration-none"
+                ><%= article.title %></a
+              >
+            </h2>
+            <small class="text-secondary fst-italic fs-8 font-lora"
               >Creado por <%= article.user.firstname %> el 24 de Setiembre, 2022</small
             >
           </div>
@@ -36,6 +36,8 @@
       </div>
     </div>
     <% } %>
+    <!-- -- -->
+    <%- include("partials/footer") %>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

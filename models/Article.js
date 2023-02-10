@@ -5,24 +5,23 @@ class Article extends Model {
     Article.init(
       {
         id: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.BIGINT.UNSIGNED,
           primaryKey: true,
           autoIncrement: true,
         },
         title: {
-          type: DataTypes.STRING(100),
-          allowNull: false,
+          type: DataTypes.STRING,
         },
         content: {
           type: DataTypes.TEXT,
-          allowNull: false,
-        },
-        image: {
-          type: DataTypes.STRING,
         },
       },
-      { sequelize, modelName: "article" }
+      {
+        sequelize,
+        modelName: "article",
+      },
     );
+
     return Article;
   }
 }

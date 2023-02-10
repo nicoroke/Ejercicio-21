@@ -2,16 +2,15 @@ const express = require("express");
 const router = express.Router();
 const articleController = require("../controllers/articleController");
 
+// Rutas relacionadas a los artículos:
+// ...
+
 router.get("/", articleController.index);
-
-router.get("/nuevo", articleController.create);
-
+router.get("/crear", articleController.create);
+router.get("/", articleController.store);
 router.get("/:id", articleController.show);
-
-router.post("/create", articleController.store);
-
-router.get("/edit/:id", articleController.edit);
-
-router.post("/delete/:id", articleController.delete);
+router.get("/:id/editar", articleController.edit);
+router.get("/:id", articleController.update);
+router.get("/:id", articleController.destroy);
 
 module.exports = router;

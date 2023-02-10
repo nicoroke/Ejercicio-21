@@ -1,13 +1,14 @@
-const { Sequelize, Model, DataTypes } = require("sequelize");
+const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(
-  process.env.DB_DATABASE,
-  process.env.DB_USERNAME,
-  process.env.DB_PASSWORD,
+  process.env.DB_DATABASE, // Ej: hack_academy_db
+  process.env.DB_USERNAME, // Ej: root
+  process.env.DB_PASSWORD, // Ej: root
   {
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_CONNECTION,
-  }
+    host: process.env.DB_HOST, // Ej: 127.0.0.1
+    dialect: process.env.DB_CONNECTION, // Ej: mysql
+    logging: false, // Para que no aparezcan mensajes en consola.
+  },
 );
 
 const User = require("./User");
@@ -18,15 +19,20 @@ User.initModel(sequelize);
 Comment.initModel(sequelize);
 Article.initModel(sequelize);
 
-User.hasMany(Article);
-Article.belongsTo(User);
+/**
+ * Luego de definir los modelos, se pueden establecer relaciones entre los
+ * mismos (usando métodos como belongsTo, hasMany y belongsToMany)...
+ */
 
 Article.hasMany(Comment);
 Comment.belongsTo(Article);
 
+User.hasMany(Article);
+Article.belongsTo(User);
+
 module.exports = {
   sequelize,
-  Article,
-  Comment,
   User,
+  Comment,
+  Article,
 };

@@ -5,31 +5,21 @@ class User extends Model {
     User.init(
       {
         id: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.BIGINT.UNSIGNED,
           primaryKey: true,
           autoIncrement: true,
         },
-        type: {
-          type: DataTypes.STRING(10),
-          allowNull: false,
-        },
         firstname: {
-          type: DataTypes.STRING(100),
-          allowNull: false,
+          type: DataTypes.STRING,
         },
         lastname: {
-          type: DataTypes.STRING(100),
-          allowNull: false,
-        },
-        email: {
-          type: DataTypes.STRING(100),
+          type: DataTypes.STRING,
         },
       },
-
       {
         sequelize,
         modelName: "user",
-      }
+      },
     );
     return User;
   }

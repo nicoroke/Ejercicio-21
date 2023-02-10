@@ -17,6 +17,11 @@ app.set("view engine", "ejs");
 routes(app);
 
 /* dbInitialSetup(); */ // Crea tablas e inserta datos de prueba.
+// const db = require("./models");
+// (async () => {
+//   await db.sequelize.sync({ alter: true });
+//   console.log("[Database] ¡La estructura de tablas fue actualizada!");
+// })();
 
 app.listen(APP_PORT, () => {
   console.log(`\n[Express] Servidor corriendo en el puerto ${APP_PORT}.`);

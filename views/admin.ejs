@@ -37,13 +37,13 @@
                 <!-- prettier-ignore -->
                 <%= article.content.substring(0, 50) %><%= article.content.length > 50 ? "..." : "" %>
               </td>
-              <td><img src="<%= article.image %>" height="50px" alt="" /></td>
+              <td><img src="<%= article.image %>" height="70px" alt="" /></td>
               <td><%= article.createdAt %></td>
               <td><%= `${article.user.firstname} ${article.user.lastname}` %></td>
-              <td style="width: 1px; white-space: nowrap">
+              <td class="text-center">
                 <a
                   href="/admin/articulo/<%= article.id %>/editar"
-                  class="btn btn-sm btn-primary me-1"
+                  class="btn btn-sm btn-primary mb-2"
                   >Editar</a
                 >
                 <form

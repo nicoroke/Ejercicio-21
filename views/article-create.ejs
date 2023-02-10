@@ -15,7 +15,7 @@
         <h1>Nuevo artículo</h1>
       </div>
 
-      <form action="/articulos" method="POST">
+      <form action="/admin/articulo" method="POST">
         <div class="form-floating mb-3 mt-3">
           <input type="text" id="title" name="title" class="form-control" placeholder="Título..." />
           <label for="title" class="form-label fs-6">Título</label>
@@ -33,6 +33,7 @@
         </div>
         <div class="d-flex justify-content-between">
           <small class="text-muted"><%= `${user.firstname} ${user.lastname}` %></small>
+          <input type="text" class="d-none" name="userId" value="<%= user.id %>" />
           <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
       </form>

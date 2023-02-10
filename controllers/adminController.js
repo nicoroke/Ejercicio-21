@@ -2,7 +2,7 @@ const { Article, User } = require("../models");
 
 // Display a listing of the resource.
 async function index(req, res) {
-  const articles = await Article.findAll({ include: User, limit: 10 });
+  const articles = await Article.findAll({ include: User, limit: 100 });
   /* res.json(articles); */
   res.render("admin", { articles });
 }
@@ -19,7 +19,14 @@ async function create(req, res) {
 }
 
 // Store a newly created resource in storage.
-async function store(req, res) {}
+async function store(req, res) {
+  await Article.create({
+    title: req.body.title,
+    content: req.body.content,
+    userId: req.body.userId,
+  }); // handle errors ?
+  res.redirect("/admin");
+}
 
 // Show the form for editing the specified resource.
 async function edit(req, res) {
@@ -28,7 +35,20 @@ async function edit(req, res) {
 }
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) {
+  await Article.update(
+    {
+      title: req.body.title,
+      content: req.body.content,
+    },
+    {
+      where: {
+        id: req.params.id,
+      },
+    },
+  ); // handle errors ?
+  res.redirect("/admin");
+}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {

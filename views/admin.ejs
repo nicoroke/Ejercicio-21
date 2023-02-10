@@ -13,7 +13,7 @@
     <div class="container pt-4">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h1>Articles</h1>
-        <a href="/artilces/create" class="btn btn-success">Nuevo</a>
+        <a href="/articulos/nuevo" class="btn btn-success">Nuevo</a>
       </div>
       <div>
         <table class="table table-striped">
@@ -42,17 +42,19 @@
                 <!-- prettier-ignore -->
                 <%= article.content.substring(0, 50) %><%= article.content.length > 50 && "..." %>
               </td>
-              <td><%= article.image %></td>
-              <td><%- article.createdAt %></td>
-              <td><%= article.author %></td>
+              <td><img src="<%= article.image %>" height="50px" alt="" /></td>
+              <td><%= article.createdAt %></td>
+              <td>
+                <%= `${article.user.firstname} ${article.user.lastname}` %>
+              </td>
               <td style="width: 1px; white-space: nowrap">
                 <a
-                  href="/api/articulos/editar/<%= article.id %>"
+                  href="/articulos/edit/<%= article.id %>"
                   class="btn btn-sm btn-primary me-1"
                   >Editar</a
                 >
                 <form
-                  action="/api/articulos/eliminar/<%= article.id %>?_method=delete"
+                  action="/articulos/delete/<%= article.id %>?_method=delete"
                   method="POST"
                   class="d-inline"
                 >

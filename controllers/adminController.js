@@ -20,12 +20,17 @@ async function create(req, res) {
 
 // Store a newly created resource in storage.
 async function store(req, res) {
-  await Article.create({
-    title: req.body.title,
-    content: req.body.content,
-    userId: req.body.userId,
-  }); // handle errors ?
-  res.redirect("/admin");
+  console.log(req.body);
+  if (req.body.title == "" || req.body.content == "") {
+    res.redirect("/admin");
+  } else {
+    await Article.create({
+      title: req.body.title,
+      content: req.body.content,
+      userId: req.body.userId,
+    }); // handle errors ?
+    res.redirect("/admin");
+  }
 }
 
 // Show the form for editing the specified resource.

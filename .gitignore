@@ -3,6 +3,9 @@
 # https://github.com/github/gitignore.
 # ----------------------------------------------------------------------------
 
+# Prettier Ignore
+*.prettierignore
+
 # Logs
 logs
 _.log

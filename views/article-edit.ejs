@@ -7,7 +7,7 @@
   <body class="bg-gradient vh-100" style="background-color: #bbb;">
     <%- include("partials/navbar") %>
 
-    <div class="container pt-4">
+    <div class="container py-4">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <form>
           <input type="button" class="btn btn-success" value="← Volver" onclick="history.back()" />
@@ -40,18 +40,18 @@
           >
           <label for="content" class="form-label">Contenido</label>
         </div>
-        <div class="form-floating mb-3 mt-3">
-          <input
+        <!-- <div class="form-floating input-group mb-3 mt-3">
+          <p
             type="text"
             id="image"
             name="image"
             class="form-control"
             placeholder="Imágen..."
-            value="<%= article.image %>"
-            readonly
+            value=""
           />
           <label for="title" class="form-label fs-6">URL de la imágen</label>
-        </div>
+          <button class="btn btn-outline-danger" type="button">Borrar</button>
+        </div> -->
         <div class="form-floating mb-3 mt-3">
           <input type="file" id="image" name="image" class="form-control" />
           <label for="image" class="form-label fs-6">Imágen</label>
@@ -74,6 +74,7 @@
       document.querySelector("#btn-back", () => {
         history.back();
       });
+      
     </script>
   </body>
 </html>

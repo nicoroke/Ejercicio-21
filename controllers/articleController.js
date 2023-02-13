@@ -1,5 +1,6 @@
 const { Article, User, Comment } = require("../models");
-
+const { format } = require("date-fns");
+const { es } = require("date-fns/locale");
 // Display a listing of the resource.
 async function index(req, res) {
   const articles = await Article.findAll({ include: User });
@@ -12,7 +13,7 @@ async function show(req, res) {
   const article = await Article.findByPk(req.params.id, { include: User });
 
   /* res.json(rows); */
-  res.render("article", { article /* , count, rows */ });
+  res.render("article", { article, format, es });
 }
 
 // Show the form for creating a new resource

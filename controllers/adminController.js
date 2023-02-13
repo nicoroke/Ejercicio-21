@@ -1,10 +1,11 @@
 const { Article, User } = require("../models");
+const { format } = require("date-fns");
 
 // Display a listing of the resource.
 async function index(req, res) {
   const articles = await Article.findAll({ include: User, limit: 100 });
   /* res.json(articles); */
-  res.render("admin", { articles });
+  res.render("admin", { articles, format });
 }
 
 // Display the specified resource.
@@ -21,7 +22,7 @@ async function create(req, res) {
 // Store a newly created resource in storage.
 async function store(req, res) {
   console.log(req.body);
-  if (req.body.title == "" || req.body.content == "") {
+  if (req.body.title === "" || req.body.content === "") {
     res.redirect("/admin");
   } else {
     await Article.create({

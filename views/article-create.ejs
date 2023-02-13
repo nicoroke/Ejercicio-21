@@ -4,7 +4,7 @@
     <title>Nuevo artículo</title>
     <%- include("partials/head") %>
   </head>
-  <body>
+  <body class="bg-gradient vh-100" style="background-color: #ccc;">
     <%- include("partials/navbar") %>
 
     <div class="container pt-4">
@@ -15,7 +15,7 @@
         <h1>Nuevo artículo</h1>
       </div>
 
-      <form action="/admin/articulo" method="POST">
+      <form action="/admin/articulo" method="POST" enctype="multipart/form-data">
         <div class="form-floating mb-3 mt-3">
           <input
             type="text"
@@ -40,8 +40,11 @@
           <label for="content" class="form-label">Contenido</label>
         </div>
         <div class="form-floating mb-3 mt-3">
-          <input type="text" id="image" name="image" class="form-control" placeholder="Imágen..." />
-          <label for="image" class="form-label fs-6">URL de la imágen</label>
+          <input type="file" id="image" name="image" class="form-control" />
+          <label for="image" class="form-label fs-6">Imágen</label>
+        </div>
+        <div class="d-flex align-items-center justify-content-center mb-3">
+          <img id="img" src="" alt="" style="max-height: 300px; max-width: 400px;">
         </div>
         <div class="d-flex justify-content-between">
           <small class="text-muted"><%= `${user.firstname} ${user.lastname}` %></small>
@@ -56,6 +59,9 @@
       document.querySelector("#btn-back", () => {
         history.back();
       });
+      document.querySelector("#image").onchange = () => {
+        document.querySelector("#img").src = URL.createObjectURL(document.querySelector("#image").files[0])
+      }
     </script>
   </body>
 </html>

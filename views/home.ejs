@@ -28,7 +28,9 @@
               >
             </h2>
             <small class="text-secondary fst-italic fs-8 font-lora"
-              >Creado por <%= article.user.firstname %> el 24 de Setiembre, 2022</small
+              >Creado por <%= article.user.firstname %> el <%= format( article.createdAt, "dd" ) %>
+              de <%= format( article.createdAt, "MMMM", {locale: es} ) %>, <%= format(
+              article.createdAt, "yyyy" ) %></small
             >
           </div>
           <hr />

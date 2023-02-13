@@ -11,7 +11,11 @@
       <div class="row justify-content-center">
         <div class="col-6">
           <h1 class="fs-1 font-open-sans"><%= article.title %></h1>
-          <small>Creado por <%= article.user.firstname %> el 24 de Setiembre, 2022</small>
+          <small
+            >Creado por <%= article.user.firstname %> el <%= format( article.createdAt, "dd" ) %> de
+            <%= format( article.createdAt, "MMMM", {locale: es} ) %>, <%= format( article.createdAt,
+            "yyyy" ) %></small
+          >
         </div>
       </div>
     </div>
@@ -20,6 +24,7 @@
       <div class="row justify-content-center">
         <div class="col-6">
           <div class="px-4">
+            <img src="<%= article.image %>" alt="Imagen del Articulo" class="mb-5" />
             <p><%= article.content %></p>
             <hr class="my-5" />
             <form action="/articulos/<%= article.id %>/comentarios" method="post" class="mb-5">
@@ -40,12 +45,12 @@
               <button type="submit" class="btn btn-primary width-100" id="btn">Send</button>
             </form>
             <h3 id="commentsCount"></h3>
-            <button
+            <!--             <button
               id="viewMoreBtn"
               type="sub
             "
               class="btn btn-primary"
-            ></button>
+            ></button> -->
           </div>
         </div>
       </div>
@@ -65,7 +70,7 @@
       fetch(`/articulos/<%= article.id %>/comentarios`)
         .then((response) => response.json())
         .then(function (data) {
-          for (let i = 0; i < 2; i++) {
+          for (let i = data.count; i === 0; i--) {
             const commentsCount = document.querySelector("#commentsCount");
             commentsCount.textContent = `Comments(${data.count})`;
             const comments = data.rows;

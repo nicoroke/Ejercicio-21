@@ -1,11 +1,17 @@
 const { Article, User } = require("../models");
 const { format } = require("date-fns");
+const { es } = require("date-fns/locale");
+const formidable = require("formidable");
 
 // Display a listing of the resource.
 async function index(req, res) {
-  const articles = await Article.findAll({ include: User, limit: 100 });
+  const articles = await Article.findAll({
+    include: User,
+    limit: 10,
+    order: [["createdAt", "DESC"]],
+  });
   /* res.json(articles); */
-  res.render("admin", { articles, format });
+  res.render("admin", { articles, format, es });
 }
 
 // Display the specified resource.
@@ -20,17 +26,24 @@ async function create(req, res) {
 }
 
 // Store a newly created resource in storage.
-async function store(req, res) {
-  console.log(req.body);
+function store(req, res) {
   if (req.body.title === "" || req.body.content === "") {
-    res.redirect("/admin");
+    res.redirect("/admin"); // pendiente
   } else {
-    await Article.create({
-      title: req.body.title,
-      content: req.body.content,
-      userId: req.body.userId,
-    }); // handle errors ?
-    res.redirect("/admin");
+    const form = formidable({
+      multiples: true,
+      uploadDir: __dirname + "/../public/uploads",
+      keepExtensions: true,
+    });
+    form.parse(req, async (err, fields, files) => {
+      await Article.create({
+        title: fields.title,
+        content: fields.content,
+        image: "/uploads/" + files.image.newFilename,
+        userId: fields.userId,
+      }); // handle errors ?
+      res.redirect("/admin");
+    });
   }
 }
 
@@ -42,18 +55,31 @@ async function edit(req, res) {
 
 // Update the specified resource in storage.
 async function update(req, res) {
-  await Article.update(
-    {
-      title: req.body.title,
-      content: req.body.content,
-    },
-    {
-      where: {
-        id: req.params.id,
-      },
-    },
-  ); // handle errors ?
-  res.redirect("/admin");
+  if (req.body.title === "" || req.body.content === "") {
+    res.redirect("/admin"); // pendiente
+  } else {
+    const form = formidable({
+      multiples: true,
+      uploadDir: __dirname + "/../public/uploads",
+      keepExtensions: true,
+      allowEmptyFiles: false,
+    });
+    form.parse(req, async (err, fields, files) => {
+      let fieldsToUpdate = {
+        title: fields.title,
+        content: fields.content,
+      };
+      if (files.image !== undefined) {
+        fieldsToUpdate.image = "/uploads/" + files.image.newFilename;
+      }
+      await Article.update(fieldsToUpdate, {
+        where: {
+          id: req.params.id,
+        },
+      }); // handle errors ?
+      res.redirect("/admin");
+    });
+  }
 }
 
 // Remove the specified resource from storage.

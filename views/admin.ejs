@@ -38,7 +38,7 @@
                 <%= article.content.substring(0, 50) %><%= article.content.length > 50 ? "..." : "" %>
               </td>
               <td><img src="<%= article.image %>" height="70px" alt="" /></td>
-              <td><%= format( article.createdAt, "yyyy-MM-dd hh:mm:ss" ) %>
+              <td><%= format( article.createdAt, "yyyy-MM-dd hh:mm:ss", { locale: es } ) %>
                 </td>
               <td><%= `${article.user.firstname} ${article.user.lastname}` %></td>
               <td class="text-center">

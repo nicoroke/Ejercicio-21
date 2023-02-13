@@ -2,12 +2,12 @@ const { Article, User } = require("../models");
 const { format } = require("date-fns");
 const { es } = require("date-fns/locale");
 const formidable = require("formidable");
+const fs = require("fs");
 
 // Display a listing of the resource.
 async function index(req, res) {
   const articles = await Article.findAll({
     include: User,
-    limit: 10,
     order: [["createdAt", "DESC"]],
   });
   /* res.json(articles); */
@@ -27,24 +27,35 @@ async function create(req, res) {
 
 // Store a newly created resource in storage.
 function store(req, res) {
-  if (req.body.title === "" || req.body.content === "") {
-    res.redirect("/admin"); // pendiente
-  } else {
-    const form = formidable({
-      multiples: true,
-      uploadDir: __dirname + "/../public/uploads",
-      keepExtensions: true,
-    });
-    form.parse(req, async (err, fields, files) => {
-      await Article.create({
+  const form = formidable({
+    multiples: true,
+    uploadDir: __dirname + "/../public/uploads",
+    keepExtensions: true,
+  });
+  form.parse(req, async (err, fields, files) => {
+    if (files.image.size === 0) {
+      console.log("borrar");
+      fs.unlink(__dirname + "/../public/uploads/" + files.image.newFilename, (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+    }
+    if (fields.title === "" || fields.content === "") {
+      res.redirect("/admin"); // pendiente
+    } else {
+      let newArticleFields = {
         title: fields.title,
         content: fields.content,
-        image: "/uploads/" + files.image.newFilename,
         userId: fields.userId,
-      }); // handle errors ?
+      };
+      if (files.image.originalFilename !== "") {
+        newArticleFields.image = "/uploads/" + files.image.newFilename;
+      }
+      await Article.create(newArticleFields); // handle errors ?
       res.redirect("/admin");
-    });
-  }
+    }
+  });
 }
 
 // Show the form for editing the specified resource.
@@ -55,21 +66,28 @@ async function edit(req, res) {
 
 // Update the specified resource in storage.
 async function update(req, res) {
-  if (req.body.title === "" || req.body.content === "") {
-    res.redirect("/admin"); // pendiente
-  } else {
-    const form = formidable({
-      multiples: true,
-      uploadDir: __dirname + "/../public/uploads",
-      keepExtensions: true,
-      allowEmptyFiles: false,
-    });
-    form.parse(req, async (err, fields, files) => {
+  const form = formidable({
+    multiples: true,
+    uploadDir: __dirname + "/../public/uploads",
+    keepExtensions: true,
+  });
+  form.parse(req, async (err, fields, files) => {
+    if (files.image.size === 0) {
+      console.log("borrar");
+      fs.unlink(__dirname + "/../public/uploads/" + files.image.newFilename, (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+    }
+    if (fields.title === "" || fields.content === "") {
+      res.redirect("/admin"); // pendiente
+    } else {
       let fieldsToUpdate = {
         title: fields.title,
         content: fields.content,
       };
-      if (files.image !== undefined) {
+      if (files.image.originalFilename !== "") {
         fieldsToUpdate.image = "/uploads/" + files.image.newFilename;
       }
       await Article.update(fieldsToUpdate, {
@@ -79,15 +97,19 @@ async function update(req, res) {
       }); // handle errors ?
       /* res.send(files); */
       res.redirect("/admin");
-    });
-  }
+    }
+  });
 }
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {
-  const count = await Article.destroy({ where: { id: req.params.id } });
-  console.log(` [Database] Registro id=${req.params.id} eliminado de la table articles`);
-  res.redirect("/admin");
+  try {
+    const count = await Article.destroy({ where: { id: req.params.id } });
+    console.log(` [Database] Registro id=${req.params.id} eliminado de la table articles`);
+    res.redirect("/admin?mensaje");
+  } catch (error) {
+    res.redirect("/admin?error=");
+  }
 }
 
 module.exports = {

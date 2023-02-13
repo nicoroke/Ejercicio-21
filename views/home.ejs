@@ -21,16 +21,13 @@
         <div class="col-6">
           <div class="px-4">
             <h2 class="fs-4 fw-bold font-open-sans">
-              <a
-                href="http://localhost:3000/articulos/<%= article.id %>"
-                class="text-decoration-none text-dark"
+              <a href="/articulos/<%= article.id %>" class="text-decoration-none text-dark"
                 ><%= article.title %></a
               >
             </h2>
             <small class="text-secondary fst-italic fs-8 font-lora"
-              >Creado por <%= article.user.firstname %> el <%= format( article.createdAt, "dd" ) %>
-              de <%= format( article.createdAt, "MMMM", {locale: es} ) %>, <%= format(
-              article.createdAt, "yyyy" ) %></small
+              >Creado por <%= article.user.firstname + " " + article.user.lastname %> el <%= format(
+              article.createdAt, "dd 'de' MMMM ' ,' yyyy" ) %></small
             >
           </div>
           <hr />

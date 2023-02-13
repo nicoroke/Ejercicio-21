@@ -77,6 +77,7 @@ async function update(req, res) {
           id: req.params.id,
         },
       }); // handle errors ?
+      /* res.send(files); */
       res.redirect("/admin");
     });
   }

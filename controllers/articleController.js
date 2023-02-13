@@ -4,15 +4,12 @@ const { es } = require("date-fns/locale");
 // Display a listing of the resource.
 async function index(req, res) {
   const articles = await Article.findAll({ include: User });
-  /* res.json(articles); */
   res.render("article", { articles });
 }
 
 // Display the specified resource.
 async function show(req, res) {
   const article = await Article.findByPk(req.params.id, { include: User });
-
-  /* res.json(rows); */
   res.render("article", { article, format, es });
 }
 

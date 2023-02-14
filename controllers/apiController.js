@@ -12,16 +12,6 @@ async function showOneById(req, res) {
   res.json(article);
 }
 
-// async function destroy(req, res) {
-//   const count = await Article.destroy({ where: { id: req.params.id } });
-//   console.log(` [Database] Registro id=${req.params.id} eliminado de la table articles`);
-//   if (count > 0) {
-//     res.send("ok");
-//   } else {
-//     res.send("error");
-//   }
-// }
-
 module.exports = {
   showAll,
   showOneById,

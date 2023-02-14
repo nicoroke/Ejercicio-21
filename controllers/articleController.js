@@ -1,6 +1,7 @@
 const { Article, User, Comment } = require("../models");
 const { format } = require("date-fns");
 const { es } = require("date-fns/locale");
+const formidable = require("formidable");
 
 // Display a listing of the resource.
 async function index(req, res) {
